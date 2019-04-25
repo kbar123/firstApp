@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">firstApp</string>
+    <string name="app_name">Draw Something</string>
+    <string name="keep_tapping">Keep tapping.</string>
+    <string name="done">Done!</string>
 </resources>

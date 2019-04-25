@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
         tcpClient = new TCPClient(new TCPClient.AsyncResponse() {
 
             @Override
-            public void processFinish(String response) {
+            public void processFinish(int messageType, byte[] message) {
+                String response=new String(message);
                 System.out.println(response);
                 if (response.contains("Welcome")){
                     intent = new Intent(appConetxt, DisplayMessageActivity.class);
