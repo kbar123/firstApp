@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.Socket;
@@ -39,11 +40,14 @@ public class MainActivity extends AppCompatActivity {
     public void checkLogin(View view) {
         String username = ((EditText) findViewById(R.id.username)).getText().toString();
         String password = ((EditText) findViewById(R.id.password)).getText().toString();
+        String loginMessage="";
 
-        HashMap<String, String> params = new HashMap<>();
-        params.put("username", username);
-        params.put("password", password);
 
+        try {
+            loginMessage="password="+URLEncoder.encode(password, "UTF-8")+"&username="+URLEncoder.encode(username, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         tcpClient = new TCPClient(new TCPClient.AsyncResponse() {
 
             @Override
@@ -57,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
-        },  params);
+        },  loginMessage);
         tcpClient.execute();
 
     }

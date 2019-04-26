@@ -1,11 +1,9 @@
 package com.applicationsbar.firstapp;
 
-import android.content.Context;
+
 import android.os.AsyncTask;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.DataInputStream;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -41,13 +39,12 @@ public class TCPClient extends AsyncTask<URL, Integer, Long> {
     PrintStream os;
     InputStream is;
     public static String message="";
-    HashMap<String, String> params;
 
     public static byte[] ba=null;
 
 
-    TCPClient(AsyncResponse delegate,  HashMap<String, String> pparams) {
-        params = pparams;
+    TCPClient(AsyncResponse delegate,  String loginMessage) {
+        message = loginMessage;
 
         this.delegate = delegate;
     }
@@ -57,22 +54,7 @@ public class TCPClient extends AsyncTask<URL, Integer, Long> {
 
     }
 
-    private String getPostDataString(HashMap<String, String> params) throws UnsupportedEncodingException {
-        StringBuilder feedback = new StringBuilder();
-        boolean first = true;
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            if (first)
-                first = false;
-            else
-                feedback.append("&");
 
-            feedback.append(URLEncoder.encode(entry.getKey(), "UTF-8"));
-            feedback.append("=");
-            feedback.append(URLEncoder.encode(entry.getValue(), "UTF-8"));
-        }
-
-        return feedback.toString();
-    }
 
     public void getData() throws IOException {
 
@@ -84,9 +66,8 @@ public class TCPClient extends AsyncTask<URL, Integer, Long> {
             clientSocket = new Socket(host, portNumber);
             os = new PrintStream(clientSocket.getOutputStream());
             is =clientSocket.getInputStream();
-            os.println(getPostDataString(params));
-            String responseLine;
-            byte[] b=new  byte[1000];
+            os.println(message);
+            message="";
             try {
                 while (true) {
                     if (is.available()>0) {
@@ -103,8 +84,7 @@ public class TCPClient extends AsyncTask<URL, Integer, Long> {
 
                         delegate.processFinish(messageType,message);
 
-                        /*if (responseLine.indexOf("*** Bye") != -1)
-                                break;*/
+
 
                     }
 
@@ -145,13 +125,7 @@ public class TCPClient extends AsyncTask<URL, Integer, Long> {
         Long numOfBytes = Long.valueOf(result.length);
         return numOfBytes;
     }
-    @Override
-    protected void onPostExecute(Long result) {
 
-
-       // delegate.processFinish(response);
-
-    }
 
     private void sendStringMessage(String s) {
 
