@@ -21,11 +21,18 @@ public class DrawActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw);
+        this.setFinishOnTouchOutside(false);
         paintView = (PaintView) findViewById(R.id.paintView);
-       // DisplayMetrics metrics = new DisplayMetrics();
-        //getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        paintView.init(paintView.getWidth(),paintView.getHeight());
 
+    }
+
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        int w=paintView.getWidth();
+        int h=paintView.getHeight();
+        paintView.init( paintView.getWidth(), paintView.getHeight());
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

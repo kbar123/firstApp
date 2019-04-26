@@ -13,8 +13,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".DrawActivity"
-            android:parentActivityName=".DisplayMessageActivity">
+
+        <activity android:name=".DrawActivity" android:excludeFromRecents="true" android:theme="@style/Theme.AppCompat.Dialog">
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
