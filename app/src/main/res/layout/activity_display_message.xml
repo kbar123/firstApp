@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="384dp"
-        android:layout_height="69dp"
+        android:layout_width="382dp"
+        android:layout_height="102dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="28dp"
@@ -62,34 +62,19 @@
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="204dp"
+        android:layout_width="153dp"
+        android:layout_height="158dp"
 
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="16dp"
         android:adjustViewBounds="true"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/paintView"
-        app:layout_constraintVertical_bias="0.0" />
-
-
-    <com.applicationsbar.firstapp.PaintView
-        android:id="@+id/paintView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="376dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.045" />
+        app:layout_constraintVertical_bias="0.0" />
+
 
     <Button
         android:id="@+id/send"

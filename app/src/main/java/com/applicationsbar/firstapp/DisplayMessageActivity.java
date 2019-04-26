@@ -22,7 +22,7 @@ import static com.applicationsbar.firstapp.MainActivity.tcpClient;
 public class DisplayMessageActivity extends AppCompatActivity {
 
     public static TCPClient tcpClient;
-    private PaintView paintView;
+
     ImageView myImage;
     byte[] gmessage;
     Bitmap bitmap;
@@ -88,37 +88,18 @@ public class DisplayMessageActivity extends AppCompatActivity {
 
         TCPClient.delegate=ar;
 
-        paintView = (PaintView) findViewById(R.id.paintView);
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
 
 
     }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        int w=paintView.getWidth();
-        int h=paintView.getHeight();
-        paintView.init( paintView.getWidth(), paintView.getHeight());
-    }
+
     public void sendMessage(View view) {
         String message = ((EditText) findViewById(R.id.messageToSend)).getText().toString();
         TCPClient.message=message;
     }
 
-    public void sendDrawing(View view) {
 
-        try {
-
-            ByteArrayOutputStream os= new ByteArrayOutputStream();
-            paintView.mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
-            TCPClient.ba=os.toByteArray();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
     public void draw(View view) {
 
