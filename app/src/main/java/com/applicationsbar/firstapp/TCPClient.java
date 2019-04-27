@@ -70,8 +70,11 @@ public class TCPClient extends AsyncTask<URL, Integer, Long> {
             message="";
             try {
                 while (true) {
+                    if (clientSocket.isClosed())
+                        break;
                     if (is.available()>0) {
                         int messageType = is.read();
+
                         int messageLength = 0;
                         for (int i=0; i<4; i++) {
                             int j = is.read();
@@ -83,6 +86,14 @@ public class TCPClient extends AsyncTask<URL, Integer, Long> {
                         }
 
                         delegate.processFinish(messageType,message);
+
+                        if (messageType==3){
+                            is.close();
+                            os.close();
+                            clientSocket.close();
+                            break; // Login failed
+                        }
+
 
 
 
@@ -99,7 +110,11 @@ public class TCPClient extends AsyncTask<URL, Integer, Long> {
                         ba=null;
                     }
                 }
-               // closed = true;
+
+
+
+
+
             } catch (IOException e) {
                 System.err.println("IOException:  " + e);
             }

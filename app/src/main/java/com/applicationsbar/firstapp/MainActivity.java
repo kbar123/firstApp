@@ -38,26 +38,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkLogin(View view) {
+        ((TextView) findViewById(R.id.loginMessage)).setText("");
         String username = ((EditText) findViewById(R.id.username)).getText().toString();
         String password = ((EditText) findViewById(R.id.password)).getText().toString();
         String loginMessage="";
 
+        if (username.isEmpty() || password.isEmpty()){
+            ((TextView) findViewById(R.id.loginMessage)).setText("Please enter username and password");
+            return;
 
+        }
         try {
             loginMessage="password="+URLEncoder.encode(password, "UTF-8")+"&username="+URLEncoder.encode(username, "UTF-8");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+
         tcpClient = new TCPClient(new TCPClient.AsyncResponse() {
 
             @Override
             public void processFinish(int messageType, byte[] message) {
-                String response=new String(message);
-                System.out.println(response);
-                if (response.contains("Welcome")){
-                    intent = new Intent(appConetxt, DisplayMessageActivity.class);
-                    intent.putExtra(EXTRA_MESSAGE, response);
-                    startActivity(intent);
+                if (messageType==1) {
+                    String response = new String(message);
+                    System.out.println(response);
+                    if (response.contains("Welcome")) {
+                        intent = new Intent(appConetxt, DisplayMessageActivity.class);
+                        intent.putExtra(EXTRA_MESSAGE, response);
+                        startActivity(intent);
+                    }
+                }
+                else {
+                    ((TextView) findViewById(R.id.loginMessage)).setText("Login Failed");
+                    System.out.println("Login failed");
                 }
 
             }

@@ -41,25 +41,7 @@ public class DrawActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
-            case R.id.normal:
-                paintView.normal();
-                return true;
-            case R.id.emboss:
-                paintView.emboss();
-                return true;
-            case R.id.blur:
-                paintView.blur();
-                return true;
-            case R.id.clear:
-                paintView.clear();
-                return true;
-        }
 
-        return super.onOptionsItemSelected(item);
-    }
 
     public void sendDrawing(View view) {
 
@@ -68,6 +50,7 @@ public class DrawActivity extends AppCompatActivity {
             ByteArrayOutputStream os= new ByteArrayOutputStream();
             paintView.mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, os);
             TCPClient.ba=os.toByteArray();
+            finish();
         } catch (Exception e) {
             e.printStackTrace();
         }
