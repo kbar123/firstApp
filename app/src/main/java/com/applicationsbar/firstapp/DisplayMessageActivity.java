@@ -97,6 +97,7 @@ public class DisplayMessageActivity extends AppCompatActivity {
     public void sendMessage(View view) {
         String message = ((EditText) findViewById(R.id.messageToSend)).getText().toString();
         TCPClient.message=message;
+        ((EditText) findViewById(R.id.messageToSend)).setText("");
     }
 
 
